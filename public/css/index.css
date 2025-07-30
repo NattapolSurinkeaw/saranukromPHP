@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Dancing+Script:wght@500;700&family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Itim', cursive;
+}
+
+/* สำหรับ WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 8px; /* ปรับความกว้างของ scroll bar */
+    height: 8px; /* ปรับความสูงของ scroll bar (สำหรับแนวนอน) */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #dcdbdb; /* สีของ thumb */
+    border-radius: 4px; /* ความโค้งของ thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #c4c4c4; /* สีของ thumb เมื่อ hover */
+}
+
+a {
+  all: unset;
+  cursor: pointer;
+}
+
+.container {
+  width: 1536px;
+  margin: 0 auto;
+}
+@media screen and (max-width: 1600px) {
+  .container {
+    width: 90%;
+  }
+}
+
+.tabmenu {
+  display:flex; 
+  gap:1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .tabmenu {
+    display: none;
+  }
+}
+
+
+
+/* new Nav */
+.nav {
+  height: 70px;
+  width: 100%;
+  padding: 0 1rem;
+  background-color: #4d4d4d;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav > .nav-header {
+  display: inline;
+}
+
+.nav > .nav-header > .nav-title {
+  display: inline-block;
+  font-size: 22px;
+  color: #fff;
+  padding: 10px 10px 10px 10px;
+}
+
+.nav > .nav-btn {
+  display: none;
+}
+
+.nav > .nav-links {
+  display: inline;
+  float: right;
+  font-size: 18px;
+}
+
+.nav > .nav-links > a {
+  display: inline-block;
+  padding: 13px 10px 13px 10px;
+  text-decoration: none;
+  color: #efefef;
+}
+
+.nav > .nav-links > a:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.nav > #nav-check {
+  display: none;
+}
+
+@media (max-width:600px) {
+  .nav > .nav-btn {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
+  .nav > .nav-btn > label {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    padding: 13px;
+  }
+  .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .nav > .nav-btn > label > span {
+    display: block;
+    width: 25px;
+    height: 10px;
+    border-top: 2px solid #eee;
+  }
+  .nav > .nav-links {
+    position: absolute;
+    display: block;
+    width: 100%;
+    background-color: #333;
+    height: 0px;
+    transition: all 0.3s ease-in;
+    overflow-y: hidden;
+    top: 50px;
+    left: 0px;
+  }
+  .nav > .nav-links > a {
+    display: block;
+    width: 100%;
+  }
+  .nav > #nav-check:not(:checked) ~ .nav-links {
+    height: 0px;
+  }
+  .nav > #nav-check:checked ~ .nav-links {
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+  }
+}
+
+.logoWeb {
+  color: white;
+  font-size: 2.5rem;
+  font-family: "Black And White Picture", serif;
+}
+
+.logo-box {
+  display: inline-block;
+  padding: 0.25rem 0.75rem; /* py-1 px-3 */
+  color: white;
+  border-radius: 0.5rem; /* rounded-lg */
+  transform: rotate(0deg);
+}
+
+.logo-box.yellow {
+  background-color: #facc15; /* bg-yellow-400 */
+  transform: rotate(-5deg);
+}
+
+.logo-box.blue {
+  background-color: #3b82f6; /* bg-blue-500 */
+  transform: rotate(3deg);
+  margin-left: 0.5rem; /* ml-2 */
+}

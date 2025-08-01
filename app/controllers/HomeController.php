@@ -3,7 +3,7 @@
 class HomeController extends Controller {
   public function testt() {
     $mangaModel = $this->model("Manga");
-      $mangas = $mangaModel->getMangaAll();
+    $mangas = $mangaModel->getMangaAll();
     echo json_encode($mangas);
   }
 

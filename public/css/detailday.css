@@ -1,0 +1,150 @@
+.calendar-container {
+  max-width: 960px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  font-family: 'Itim', sans-serif;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fcd5ce;
+  color: #b91c1c;
+  padding: 16px 24px;
+  border-bottom: 1px solid #fbb6b6;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.arrow {
+  font-size: 24px;
+  transition: transform 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.arrow:hover {
+  transform: scale(1.1);
+}
+
+.calendar-title {
+  text-align: center;
+}
+
+.calendar-title h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #db2777;
+  margin-top: 4px;
+  display: block;
+}
+
+.home-button p {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 16px;
+  background-color: white;
+  color: #db2777;
+  border: 1px solid #ec4899;
+  border-radius: 9999px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.home-button p:hover {
+  background-color: #ec4899;
+  color: white;
+}
+
+.calendar-grid {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.calendar-day {
+  border: 1px solid #fcd5ce;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 16px;
+}
+
+.calendar-date {
+  font-weight: bold;
+  color: #db2777;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.calendar-content {
+  font-size: 14px;
+  color: #374151;
+}
+
+.publisher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+}
+
+.publisher img {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.manga-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px;
+  transition: background 0.2s;
+}
+
+.manga-item:hover {
+  background-color: #ffe4e6;
+}
+
+.manga-item img {
+  width: 80px;
+  height: 120px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.manga-info {
+  font-size: 18px;
+}
+
+.volume {
+  color: #9ca3af;
+  font-size: 14px;
+  display: inline-block;
+  margin-left: 4px;
+}
+
+.pending {
+  color: red;
+  margin-left: 8px;
+}
+
+.divider {
+  height: 3px;
+  background-color: #f472b6;
+  margin: 20px 0;
+}

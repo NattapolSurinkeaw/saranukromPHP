@@ -3,17 +3,19 @@
 require_once "../app/core/Model.php"; // ✅ โหลด Model ก่อนใช้งาน
 
 class Manga extends Model {
+    public static $database = "mangas";
+
     public function getMangaAll() {
         $stmt = $this->db->prepare("SELECT * FROM mangas ORDER BY `updated_at` DESC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getMangaByCate($id) {
-        $stmt = $this->db->prepare("SELECT * FROM mangas WHERE cate_id = ? ORDER BY `updated_at` DESC");
-        $stmt->execute([$id]); // ส่งค่าเป็น array
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); // ดึงข้อมูลทั้งหมด
-    }
+    // public function getMangaByCate($id) {
+    //     $stmt = $this->db->prepare("SELECT * FROM mangas WHERE cate_id = ? ORDER BY `updated_at` DESC");
+    //     $stmt->execute([$id]); // ส่งค่าเป็น array
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC); // ดึงข้อมูลทั้งหมด
+    // }
 
     public function getFilterManga($param) {
         // print_r($param);

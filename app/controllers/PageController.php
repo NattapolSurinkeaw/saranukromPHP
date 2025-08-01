@@ -33,12 +33,27 @@ class PageController extends Controller {
             $nextYear++;
         }
 
-        // ดึง Publisher ทั้งหมด
-        // $stmtPub = $pdo->query("SELECT id, thumbnail FROM publishers");
-        // $publishers = [];
-        // while ($row = $stmtPub->fetch(PDO::FETCH_ASSOC)) {
-        //     $publishers[$row['id']] = $row['thumbnail'];
-        // }
+        $publishModel = $this->model("Publisher");
+        $publishers = $publishModel->getPublisherAll();
+
+        $mangaModel = $this->model("Manga");
+        $mangas = $mangaModel->getMangaAll();
+
+        $publishersByDate = [];
+        $mangaByDate = [];
+
+        print_r($publishers);
+        foreach ($mangas as $manga) {
+            $date = $manga['lc_date'];
+            $pubId = $manga['publish_id'];
+
+            $mangaByDate[$date][] = $manga;
+            
+            if (!isset($publishersByDate[$date][$pubId]) && array_key_exists($pubId, $publishers)) {
+                $publishersByDate[$date][$pubId] = $publishers[$pubId];
+            }
+        }
+        print_r($publishersByDate);
 
         $this->view("home", [
             "month" => $month, 
@@ -49,7 +64,9 @@ class PageController extends Controller {
             "nextYear" => $nextYear,
             "daysInMonth" => $daysInMonth,
             "firstDayOfWeek" => $firstDayOfWeek,
-            "today" => $today 
+            "today" => $today,
+            "publishersByDate" => $publishersByDate,
+            "mangaByDate" => $mangaByDate
         ]);
     }
 
@@ -102,6 +119,70 @@ class PageController extends Controller {
     public function about() {
 
         $this->view("about");
+    }
+
+    public function detaildayPage($month, $year) {
+
+        if (!is_numeric($month) || $month < 1 || $month > 12) {
+            $month = date('n'); // fallback เป็นเดือนปัจจุบัน
+        }
+
+        $currentYear = date('Y');
+        if (!is_numeric($year) || strlen($year) != 4 || $year < 2000 || $year > $currentYear + 1) {
+            $year = $currentYear; // fallback เป็นปีปัจจุบัน
+        }
+
+        $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        $firstDayOfWeek = date('w', strtotime("$year-$month-01"));
+        $today = date('Y-m-d');
+
+        // หาค่าของเดือนก่อนหน้า / ถัดไป
+        $prevMonth = $month - 1;
+        $nextMonth = $month + 1;
+        $prevYear = $nextYear = $year;
+
+        if ($prevMonth < 1) {
+            $prevMonth = 12;
+            $prevYear--;
+        }
+        if ($nextMonth > 12) {
+            $nextMonth = 1;
+            $nextYear++;
+        }
+
+        $publishModel = $this->model("Publisher");
+        $publishers = $publishModel->getPublisherAll();
+
+        $mangaModel = $this->model("Manga");
+        $mangas = $mangaModel->getMangaAll();
+
+        $publishersByDate = [];
+        $mangaByDate = [];
+
+        foreach ($mangas as $manga) {
+            $date = $manga['lc_date'];
+            $pubId = $manga['publish_id'];
+
+            $mangaByDate[$date][] = $manga;
+
+            if (!isset($publishersByDate[$date][$pubId]) && array_key_exists($pubId, $publishers)) {
+                $publishersByDate[$date][$pubId] = $publishers[$pubId];
+            }
+        }
+
+        $this->view("detailday",[
+            "month" => $month, 
+            "prevMonth" => $prevMonth, 
+            "nextMonth" => $nextMonth, 
+            "year" => $year, 
+            "prevYear" => $prevYear, 
+            "nextYear" => $nextYear,
+            "daysInMonth" => $daysInMonth,
+            "firstDayOfWeek" => $firstDayOfWeek,
+            "today" => $today,
+            "publishersByDate" => $publishersByDate,
+            "mangaByDate" => $mangaByDate
+        ]);
     }
 }
 ?>

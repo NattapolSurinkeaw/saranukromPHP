@@ -1,8 +1,6 @@
 <?php
   use Carbon\Carbon;
 
-  $mangaByDate = [];
-  $publishersByDate = [];
   $title = "Home Page"; // ตั้งชื่อหน้า
   ob_start(); // เริ่มบันทึกเนื้อหา
 ?>
@@ -36,7 +34,7 @@
       <?php for ($week = 0; $week < 6; $week++): ?>
         <?php for ($dow = 0; $dow < 7; $dow++): ?>
           <?php if (!$started && $dow == $firstDayOfWeek) $started = true; ?>
-          <a href="/detailday/?month=<?= $month ?>&year=<?= $year ?>">
+          <a href="/detailday/<?= $month ?>/<?= $year ?>">
             <div class="calendar-cell">
               <?php if ($started && $day <= $daysInMonth): ?>
                 <?php
@@ -44,12 +42,12 @@
                   $isToday = ($dateStr === $today);
                   $thumbs = $publishersByDate[$dateStr] ?? [];
                   $titles = $mangaByDate[$dateStr] ?? [];
-                ?>
+                  ?>
                 <div class="calendar-date <?= $isToday ? 'today' : '' ?>"> <?= $day ?> </div>
-
+                
                 <div class="calendar-thumbs">
                   <?php foreach ($thumbs as $thumb): ?>
-                    <img src="<?= $thumb ?>" class="thumb-icon" alt="Publisher">
+                    <img src="<?= $thumb['thumbnail'] ?>" class="thumb-icon" alt="Publisher">
                   <?php endforeach; ?>
                 </div>
 
@@ -57,8 +55,8 @@
                   <div class="calendar-tooltip">
                     <?php foreach ($titles as $i => $manga): if ($i == 3) break; ?>
                       <div class="tooltip-item">
-                        <img src="<?= $manga->cover_book ?>" class="tooltip-img" alt="">
-                        <div title="<?= $manga->title_TH ?>"> <?= $manga->title_TH ?> (<?= $manga->volume ?>)</div>
+                        <img src="<?= $manga['thumbnail'] ?>" class="tooltip-img" alt="">
+                        <div title="<?= $manga['title_TH'] ?>"> <?= $manga['title_TH'] ?> 1</div>
                       </div>
                       <hr>
                     <?php endforeach; ?>

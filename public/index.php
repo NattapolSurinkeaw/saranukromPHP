@@ -12,6 +12,8 @@ $routes = [
     '/read/{id}' => ['PageController', 'getReadManga'],
     '/search' => ['PageController', 'searchPage'],
     '/aboutus' => ['PageController', 'about'],
+    
+    '/detailday/{month}/{year}' => ['PageController', 'detaildayPage'],
 
     '/testt' => ['HomeController', 'testt'],
     '/testpost' => ['HomeController', 'testPost'],

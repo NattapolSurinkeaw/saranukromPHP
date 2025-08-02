@@ -6,10 +6,7 @@ require_once "../app/controllers/PageController.php";
 $routes = [
     // Page route
     '/' => ['PageController', 'home'],
-    '/manga' => ['PageController', 'getManga'],
-    '/doujin' => ['PageController', 'getDoujin'],
-    '/episode/{id}' => ['PageController', 'getEpisodeManga'],
-    '/read/{id}' => ['PageController', 'getReadManga'],
+    '/manga/{id}' => ['PageController', 'getMangaDetail'],
     '/search' => ['PageController', 'searchPage'],
     '/aboutus' => ['PageController', 'about'],
     

@@ -47,7 +47,7 @@ class Model {
 
     // ดึงข้อมูลจาก id เดียว
     public function find($id) {
-        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE id = :id LIMIT 1");
+        $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch();
     }

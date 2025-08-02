@@ -3,7 +3,7 @@
 require_once "../app/core/Model.php"; // ✅ โหลด Model ก่อนใช้งาน
 
 class Manga extends Model {
-    public static $database = "mangas";
+    protected $table = 'mangas';
 
     public function getMangaAll() {
         $stmt = $this->db->prepare("SELECT * FROM mangas ORDER BY `updated_at` DESC");
@@ -16,6 +16,9 @@ class Manga extends Model {
     //     $stmt->execute([$id]); // ส่งค่าเป็น array
     //     return $stmt->fetchAll(PDO::FETCH_ASSOC); // ดึงข้อมูลทั้งหมด
     // }
+    public function getMangaById($id) {
+        return $this->find($id);
+    }
 
     public function getFilterManga($param) {
         // print_r($param);

@@ -10,10 +10,10 @@
   <div class="calendar-container">
     <!-- Header -->
     <div class="calendar-header">
-      <a href="/detailday.php?month=<?= $prevMonth ?>&year=<?= $prevYear ?>" class="arrow">
+      <a href="/detailday/<?= $prevMonth ?>/<?= $prevYear ?>" class="arrow">
         🡐
       </a>
-
+  <?php print_r($mangaByDate) ?>
       <div class="calendar-title">
         <h2>
           <?= Carbon::create($year, $month, 1)->locale('th')->translatedFormat('F Y') ?>
@@ -25,7 +25,7 @@
         </a>
       </div>
 
-      <a href="/detailday.php?month=<?= $nextMonth ?>&year=<?= $nextYear ?>" class="arrow">
+      <a href="/detailday/<?= $nextMonth ?>/<?= $nextYear ?>" class="arrow">
         🡒
       </a>
     </div>
@@ -42,13 +42,14 @@
             
             <?php if (isset($publishersByDate[$date]) && isset($mangaByDate[$date])): ?>
               <?php foreach ($publishersByDate[$date] as $pubId => $thumbnail): ?>
-                <?php print_r($thumbnail); ?>
                 <div class="publisher">
                   <img src="<?= $thumbnail['thumbnail'] ?>" alt="publisher">
                   <span><?= $thumbnail['title_TH'] ?></span>
                 </div>
-                <?php if (isset($mangaByDate[$date][$pubId])): ?>
+                <?php if (isset($mangaByDate[$date])): ?>
+                  
                   <?php foreach ($mangaByDate[$date] as $manga): ?>
+                    <?php if($manga['publish_id'] != $pubId) continue;?>
                     
                     <a href="/manga/<?= $manga['id'] ?>">
                       <div class="manga-item">

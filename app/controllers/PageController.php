@@ -42,20 +42,26 @@ class PageController extends Controller {
         $publishersByDate = [];
         $mangaByDate = [];
 
-        print_r($publishers);
         foreach ($mangas as $manga) {
             $date = $manga['lc_date'];
             $pubId = $manga['publish_id'];
 
+            // จัดกลุ่มมังงะตามวันที่
             $mangaByDate[$date][] = $manga;
-            
-            if (!isset($publishersByDate[$date][$pubId]) && array_key_exists($pubId, $publishers)) {
-                $publishersByDate[$date][$pubId] = $publishers[$pubId];
+
+            // ตรวจสอบและเพิ่ม publisher โดยใช้ array_search
+            if (!isset($publishersByDate[$date][$pubId])) {
+                // ค้นหา publisher จาก $publishers โดยดูจาก id
+                foreach ($publishers as $pub) {
+                    if ($pub['id'] == $pubId) {
+                        $publishersByDate[$date][$pubId] = $pub;
+                        break; // หยุดเมื่อเจอ
+                    }
+                }
             }
         }
-        print_r($publishersByDate);
 
-        $this->view("home", [
+        $this->view("frontoffice/home", [
             "month" => $month, 
             "prevMonth" => $prevMonth, 
             "nextMonth" => $nextMonth, 
@@ -68,6 +74,16 @@ class PageController extends Controller {
             "publishersByDate" => $publishersByDate,
             "mangaByDate" => $mangaByDate
         ]);
+    }
+
+    public function getMangaDetail($id) {
+        $mangaModel = $this->model("Manga");
+        $manga = $mangaModel->getMangaById($id);
+        
+        if(!$manga) {
+            header("Location:/home");
+        }
+        $this->view("frontoffice/mangadetail", ["manga" => $manga]);
     }
 
     public function getManga() {
@@ -165,12 +181,17 @@ class PageController extends Controller {
 
             $mangaByDate[$date][] = $manga;
 
-            if (!isset($publishersByDate[$date][$pubId]) && array_key_exists($pubId, $publishers)) {
-                $publishersByDate[$date][$pubId] = $publishers[$pubId];
+            if (!isset($publishersByDate[$date][$pubId])) {
+                foreach ($publishers as $pub) {
+                    if ($pub['id'] == $pubId) {
+                        $publishersByDate[$date][$pubId] = $pub;
+                        break; // หยุดเมื่อเจอ
+                    }
+                }
             }
         }
 
-        $this->view("detailday",[
+        $this->view("frontoffice/detailday",[
             "month" => $month, 
             "prevMonth" => $prevMonth, 
             "nextMonth" => $nextMonth, 
